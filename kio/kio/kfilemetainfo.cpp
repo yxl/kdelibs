@@ -26,6 +26,7 @@
 #include "kfilewriteplugin.h"
 #include "kfilewriteplugin_p.h"
 
+#define KIO_NO_STRIGI
 #ifndef KIO_NO_STRIGI
 #include <strigi/bufferedstream.h>
 #include <strigi/analyzerconfiguration.h>

@@ -349,6 +349,8 @@ KDECORE_EXPORT char* mkdtemp (char* _template)
 }
 #endif /* !HAVE_MKDTEMP */
 
+#define HAVE_STRLCPY
+
 #ifndef HAVE_STRLCPY
 
 #ifdef HAVE_STRING_H
@@ -410,6 +412,8 @@ KDECORE_EXPORT unsigned long strlcpy(char* d, const char* s, unsigned long bufsi
  * Returns strlen(initial dst) + strlen(src); if retval >= siz,
  * truncation occurred.
  */
+
+#define HAVE_STRLCAT
 
 #ifndef HAVE_STRLCAT
 

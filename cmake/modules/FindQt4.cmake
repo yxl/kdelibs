@@ -848,7 +848,7 @@ IF (QT4_QMAKE_FOUND)
   FOREACH(QT_MODULE ${QT_MODULES})
     STRING(TOUPPER ${QT_MODULE} _upper_qt_module)
     FIND_LIBRARY(QT_${_upper_qt_module}_LIBRARY_RELEASE 
-                 NAMES ${QT_MODULE}${QT_LIBINFIX} ${QT_MODULE}${QT_LIBINFIX}4
+                 NAMES ${QT_MODULE}${QT_LIBINFIX}.so ${QT_MODULE}${QT_LIBINFIX}4
                  PATHS ${QT_LIBRARY_DIR} NO_DEFAULT_PATH
         )
     FIND_LIBRARY(QT_${_upper_qt_module}_LIBRARY_DEBUG 

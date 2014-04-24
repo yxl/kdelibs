@@ -543,6 +543,8 @@ void KPty::login(const char *user, const char *remotehost)
     l_struct.ut_time = time(0);
 # endif
 
+#undef HAVE_LOGIN
+
 # ifdef HAVE_LOGIN
 #  ifdef HAVE_LOGINX
     ::loginx(&l_struct);

@@ -20,10 +20,10 @@
 
 #include "ksocketfactory.h"
 
-#include <QSslSocket>
-#include <QTcpSocket>
-#include <QTcpServer>
-#include <QUdpSocket>
+#include <QtNetwork/QSslSocket>
+#include <QtNetwork/QTcpSocket>
+#include <QtNetwork/QTcpServer>
+#include <QtNetwork/QUdpSocket>
 #include <QUrl>
 
 #include "klocalizedstring.h"
