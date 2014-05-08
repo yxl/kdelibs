@@ -45,12 +45,13 @@
 
 #include <netinet/in.h>
 
-#include <dbusmenuexporter.h>
+//#include <dbusmenuexporter.h>
 
 #include "statusnotifieritemadaptor.h"
 
 static const QString s_statusNotifierWatcherServiceName("org.kde.StatusNotifierWatcher");
 
+#if 0
 /**
  * Specialization to provide access to KDE icon names
  */
@@ -97,6 +98,7 @@ protected:
 #endif
     }
 };
+#endif
 
 KStatusNotifierItem::KStatusNotifierItem(QObject *parent)
       : QObject(parent),
@@ -453,7 +455,7 @@ void KStatusNotifierItem::setContextMenu(KMenu *menu)
             menu->installEventFilter(this);
         } else {
             d->menuObjectPath = "/MenuBar";
-            new KDBusMenuExporter(d->menuObjectPath, menu, d->statusNotifierItemDBus->dbusConnection());
+            //new KDBusMenuExporter(d->menuObjectPath, menu, d->statusNotifierItemDBus->dbusConnection());
         }
 
         connect(menu, SIGNAL(aboutToShow()), this, SLOT(contextMenuAboutToShow()));

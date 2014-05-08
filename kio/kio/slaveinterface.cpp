@@ -30,7 +30,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include <klocale.h>
-#include <ksslinfodialog.h>
 #include <kmessagebox.h>
 #include <time.h>
 #include <QtDBus/QtDBus>
@@ -465,41 +464,8 @@ int SlaveInterfacePrivate::messageBox(int type, const QString &text,
         break;
     case KIO::SlaveBase::SSLMessageBox:
     {
-        KIO::MetaData meta = sslMetaData;
-        QPointer<KSslInfoDialog> kid (new KSslInfoDialog(parentWindow));
-        //### this is boilerplate code and appears in khtml_part.cpp almost unchanged!
-        QStringList sl = meta["ssl_peer_chain"].split('\x01', QString::SkipEmptyParts);
-        QList<QSslCertificate> certChain;
-        bool decodedOk = true;
-        foreach (const QString &s, sl) {
-            certChain.append(QSslCertificate(s.toAscii())); //or is it toLocal8Bit or whatever?
-            if (certChain.last().isNull()) {
-                decodedOk = false;
-                break;
-            }
-        }
-
-        if (decodedOk || true/*H4X*/) {
-            kid->setSslInfo(certChain,
-                            meta["ssl_peer_ip"],
-                            text, // the URL
-                            meta["ssl_protocol_version"],
-                            meta["ssl_cipher"],
-                            meta["ssl_cipher_used_bits"].toInt(),
-                            meta["ssl_cipher_bits"].toInt(),
-                            KSslInfoDialog::errorsFromString(meta["ssl_cert_errors"]));
-
-            kDebug(7024) << "Showing SSL Info dialog";
-            kid->exec();
-            kDebug(7024) << "SSL Info dialog closed";
-        } else {
-            KMessageBox::information(0, i18n("The peer SSL certificate chain "
-                                             "appears to be corrupt."),
-                                     i18n("SSL"));
-        }
-        // KSslInfoDialog deletes itself (Qt::WA_DeleteOnClose).
+        KMessageBox::information(0, i18n("Not implemented!"), i18n("SSL"));
         result = 1; // whatever
-        delete kid;
         break;
     }
     default:

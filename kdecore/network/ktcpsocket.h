@@ -23,6 +23,8 @@
 
 #include <QtNetwork/QSslSocket>
 #include <QtNetwork/QSslConfiguration>
+#include <QtCore/QIODevice>
+#include <QtNetwork/QNetworkProxy>
 
 #include "kdecore_export.h"
 
@@ -35,7 +37,7 @@
   TLS::Error QCA::TLS::errorCode() - for more generic (but stil SSL) errors
  */
 
-
+#if 0
 class KSslKeyPrivate;
 
 class KDECORE_EXPORT KSslKey {
@@ -91,10 +93,11 @@ private:
     KSslCipherPrivate *const d;
 };
 
-
-class KSslErrorPrivate;
+#endif
+//class KSslErrorPrivate;
 class KTcpSocket;
 
+#if 0
 class KDECORE_EXPORT KSslError
 {
 public:
@@ -126,7 +129,7 @@ public:
 private:
     KSslErrorPrivate *const d;
 };
-
+#endif
 
 //consider killing more convenience functions with huge signatures
 //### do we need setSession() / session() ?
@@ -259,7 +262,7 @@ public:
     void disconnectFromHost();
     Error error() const; //### QAbstractSocket's model is strange. error() should be related to the
                          //current state and *NOT* just report the last error if there was one.
-    QList<KSslError> sslErrors() const; //### the errors returned can only have a subset of all
+//    QList<KSslError> sslErrors() const; //### the errors returned can only have a subset of all
                                 //possible QSslError::SslError enum values depending on backend
     bool flush();
     bool isValid() const;
@@ -288,6 +291,7 @@ public:
     bool waitForConnected(int msecs = 30000);
     bool waitForDisconnected(int msecs = 30000);
 
+#if 0
     //from QSslSocket
     void addCaCertificate(const QSslCertificate &certificate);
 //    bool addCaCertificates(const QString &path, QSsl::EncodingFormat format = QSsl::Pem,
@@ -315,7 +319,7 @@ public:
     SslVersion negotiatedSslVersion() const;     //negotiated version; downgrades are possible.
     QString negotiatedSslVersionName() const;
     bool waitForEncrypted(int msecs = 30000);
-
+#endif
     EncryptionMode encryptionMode() const;
 
     /**
@@ -341,14 +345,14 @@ public:
      *
      * @since 4.8.4
      */
-    QSslConfiguration sslConfiguration() const;
+    //QSslConfiguration sslConfiguration() const;
 
     /**
      * Sets the socket's SSL configuration.
      *
      * @since 4.8.4
      */
-    void setSslConfiguration(const QSslConfiguration& configuration);
+    //void setSslConfiguration(const QSslConfiguration& configuration);
 
 Q_SIGNALS:
     //from QAbstractSocket
@@ -365,27 +369,27 @@ Q_SIGNALS:
     //from QSslSocket
     void encrypted();
     void encryptionModeChanged(EncryptionMode);
-    void sslErrors(const QList<KSslError> &errors);
+//    void sslErrors(const QList<KSslError> &errors);
 
 public Q_SLOTS:
-    void ignoreSslErrors();
+    //void ignoreSslErrors();
     void startClientEncryption();
     // void startServerEncryption(); //not implemented
 private:
     Q_PRIVATE_SLOT(d, void reemitReadyRead())
     Q_PRIVATE_SLOT(d, void reemitSocketError(QAbstractSocket::SocketError))
-    Q_PRIVATE_SLOT(d, void reemitSslErrors(const QList<QSslError> &))
+//    Q_PRIVATE_SLOT(d, void reemitSslErrors(const QList<QSslError> &))
     Q_PRIVATE_SLOT(d, void reemitStateChanged(QAbstractSocket::SocketState))
-    Q_PRIVATE_SLOT(d, void reemitModeChanged(QSslSocket::SslMode))
+//    Q_PRIVATE_SLOT(d, void reemitModeChanged(QSslSocket::SslMode))
 
 //debugging H4X
-    void showSslErrors();
+//    void showSslErrors();
 
     friend class KTcpSocketPrivate;
     KTcpSocketPrivate *const d;
 };
 
-
+#if 0
 /**
  * This class can hold all the necessary data from a KTcpSocket to ask the user
  * to continue connecting in the face of SSL errors.
@@ -421,5 +425,5 @@ private:
     Private *const d;
 };
 
-
+#endif
 #endif // KTCPSOCKET_H

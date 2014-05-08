@@ -93,7 +93,7 @@ void KCapacityBar::setText(const QString &text)
         updateGeometry();
     }
 
-    setAccessibleName(text);
+//    setAccessibleName(text);
 
     update();
 }

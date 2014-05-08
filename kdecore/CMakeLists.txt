@@ -158,11 +158,11 @@ if (UNIX)
 endif (UNIX)
 
 add_subdirectory( kconfig_compiler )
-add_subdirectory( tests )
-add_subdirectory( sonnet/tests )
-if ( NOT WINCE )
+#add_subdirectory( tests )
+#add_subdirectory( sonnet/tests )
+if ( NOT WINCE AND FALSE)
     add_subdirectory( network/kssld )
-endif ( NOT WINCE )
+endif ( NOT WINCE AND FALSE)
 
 ########### next target ###############
 
@@ -243,15 +243,6 @@ set(kdecore_LIB_SRCS
    kernel/kcomponentdata.cpp
    kernel/kstandarddirs.cpp
    kernel/ktoolinvocation.cpp
-   auth/kauthaction.cpp
-   auth/kauthactionreply.cpp
-   auth/kauthactionwatcher.cpp
-   auth/AuthBackend.cpp
-   auth/BackendsManager.cpp
-   auth/HelperProxy.cpp
-   auth/kauthhelpersupport.cpp
-   auth/backends/fake/FakeBackend.cpp
-   auth/backends/fakehelper/FakeHelperProxy.cpp
    services/kfoldermimetype.cpp
    services/kmimetypefactory.cpp
    services/kmimemagicrule.cpp
@@ -307,7 +298,7 @@ endif (NOT KDECORE_NO_KDE3SUPPORT)
 set(kdecore_LIB_SRCS ${kdecore_LIB_SRCS}
    network/klocalsocket.cpp
    network/ksocketfactory.cpp
-   network/ksslcertificatemanager.cpp
+#   network/ksslcertificatemanager.cpp
    network/ktcpsocket.cpp
    localization/kcatalog.cpp
    localization/kcurrencycode.cpp
@@ -404,7 +395,7 @@ endif (NOT Q_WS_X11 AND NOT Q_WS_QWS)
 
 kde4_add_library(kdecore ${LIBRARY_TYPE} ${kdecore_LIB_SRCS})
 
-target_link_libraries(kdecore ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${ZLIB_LIBRARY} ${kdecore_OPTIONAL_LIBS})
+target_link_libraries(kdecore ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${ZLIB_LIBRARY} ${kdecore_OPTIONAL_LIBS} rt z dl)
 
 if(WINCE)
   target_link_libraries(kdecore ${WCECOMPAT_LIBRARIES} Ceshell.lib)
@@ -458,7 +449,7 @@ if (NOT "${KDE4_AUTH_BACKEND_NAME}" STREQUAL "FAKE")
     install( TARGETS kauth-policy-gen EXPORT kdelibsToolsTargets DESTINATION ${LIBEXEC_INSTALL_DIR})
 endif (NOT "${KDE4_AUTH_BACKEND_NAME}" STREQUAL "FAKE")
 
-if ( NOT WINCE )
+if (NOT WINCE AND FALSE)
     ########### next target ###############
 
     # KAuth backend plugin
@@ -487,7 +478,7 @@ if ( NOT WINCE )
                 RUNTIME DESTINATION ${KAUTH_HELPER_PLUGIN_DIR}
         )
     endif (NOT "${KDE4_AUTH_HELPER_BACKEND_NAME}" STREQUAL "FAKE")
-endif ( NOT WINCE )
+endif (NOT WINCE AND FALSE)
 
 ########### next target ###############
 
@@ -502,7 +493,7 @@ install(TARGETS kde4-config ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ########### next target ###############
 
-if(NOT WINCE)
+if(NOT WINCE AND FALSE)
     # kjs hash stuff for transcript plugin
     set( CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
@@ -533,7 +524,7 @@ if(NOT WINCE)
 
     install( TARGETS ktranscript DESTINATION ${PLUGIN_INSTALL_DIR} )
 
-endif(NOT WINCE)
+endif(NOT WINCE AND FALSE)
 
 ########### install files ###############
 install( FILES ${CMAKE_CURRENT_BINARY_DIR}/all_languages DESTINATION ${LOCALE_INSTALL_DIR}  )

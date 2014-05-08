@@ -1,5 +1,20 @@
 project(kdelibs)
 
+set(KDE4_INSTALL  $ENV{HOME}/kde4/install)
+
+# FindQt4.cmake querys qmake to get information, this doesn't work when crosscompiling
+set(QT_BINARY_DIR   ${KDE4_INSTALL}/bin)
+set(QT_LIBRARY_DIR  ${KDE4_INSTALL}/lib)
+set(QT_HEADERS_DIR  ${KDE4_INSTALL}/include)
+set(QT_QTCORE_LIBRARY   ${KDE4_INSTALL}/lib/QtCore.a)
+set(QT_QTCORE_INCLUDE_DIR ${KDE4_INSTALL}/include/QtCore)
+set(QT_MKSPECS_DIR  ${KDE4_INSTALL}/mkspecs)
+set(QT_MOC_EXECUTABLE  ${KDE4_INSTALL}/bin/moc)
+set(QT_QMAKE_EXECUTABLE  ${KDE4_INSTALL}/bin/qmake)
+set(QT_UIC_EXECUTABLE  ${KDE4_INSTALL}/bin/uic)
+set(QT_DBUSXML2CPP_EXECUTABLE ${KDE4_INSTALL}/bin/qdbusxml2cpp)
+set(QT_DBUSCPP2XML_EXECUTABLE ${KDE4_INSTALL}/bin/qdbuscpp2xml)
+
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
@@ -70,16 +85,7 @@ macro_log_feature(PERL_FOUND "Perl" "Needed for building kdelibs" "http://www.pe
 find_package(ZLIB)
 macro_log_feature(ZLIB_FOUND "ZLib" "Support for gzip compressed files and data streams" "http://www.zlib.net" TRUE "" "Required by the core KDE libraries and some critical kioslaves")
 
-set(STRIGI_MIN_VERSION 0.6.3)
-find_package(Strigi)
-if (WIN32)
-    set (STRIGI_REQUIRED FALSE)
-    set (STRIGI_EXTRA_TEXT "")
-else (WIN32)
-    set (STRIGI_REQUIRED TRUE)
-    set (STRIGI_EXTRA_TEXT "Required by some critical kioslaves")
-endif (WIN32)
-macro_log_feature(STRIGI_FOUND "Strigi" "Desktop indexing and search support" "http://strigi.sourceforge.net" ${STRIGI_REQUIRED} "${STRIGI_MIN_VERSION}" "${STRIGI_EXTRA_TEXT}")
+set (STRIGI_REQUIRED FALSE)
 
 set(LIBATTICA_MIN_VERSION "0.1.90")
 find_package(LibAttica)
@@ -119,8 +125,8 @@ macro_log_feature(SHAREDDESKTOPONTOLOGIES_FOUND "Shared desktop ontologies" "Sup
 macro_optional_find_package(QCA2)
 macro_log_feature(QCA2_FOUND "QCA2" "Support for remote plasma widgets" "http://delta.affinix.com/qca" FALSE "2.0.0" "")
 
-find_package(DBusMenuQt)
-macro_log_feature(DBUSMENUQT_FOUND "DBusMenuQt" "Support for notification area menus via the DBusMenu protocol" "https://launchpad.net/libdbusmenu-qt" TRUE "" "")
+#find_package(DBusMenuQt)
+#macro_log_feature(DBUSMENUQT_FOUND "DBusMenuQt" "Support for notification area menus via the DBusMenu protocol" "https://launchpad.net/libdbusmenu-qt" TRUE "" "")
 
 ################# Disallow in-source build #################
 
@@ -194,7 +200,6 @@ set(KDE4_KDEUI_INCLUDES ${CMAKE_SOURCE_DIR}/kdeui
                         ${CMAKE_SOURCE_DIR}/kdeui/itemviews
                         ${CMAKE_SOURCE_DIR}/kdeui/jobs
                         ${CMAKE_SOURCE_DIR}/kdeui/kernel
-                        ${CMAKE_SOURCE_DIR}/kdeui/notifications
                         ${CMAKE_SOURCE_DIR}/kdeui/paged
                         ${CMAKE_SOURCE_DIR}/kdeui/plotting
                         ${CMAKE_SOURCE_DIR}/kdeui/shortcuts
@@ -225,10 +230,6 @@ set(KDE4_KDE3SUPPORT_INCLUDES ${CMAKE_SOURCE_DIR}/kde3support
                               ${CMAKE_SOURCE_DIR}/kde3support/kdeui
                               ${CMAKE_SOURCE_DIR}/kde3support/kio
                               ${KDE4_KPARTS_INCLUDES})
-
-if(NOT WINCE)
- set(KDE4_KHTML_INCLUDES ${CMAKE_SOURCE_DIR}/khtml)
-endif(NOT WINCE)
 
 
 ################# configure checks and create the configured files #################
@@ -283,23 +284,19 @@ if (UNIX)
    add_subdirectory( kpty )
    add_subdirectory( kdesu )
 endif (UNIX)
-if(NOT WINCE)
+if(NOT WINCE AND FALSE)
 add_subdirectory( kjs )
 add_subdirectory( kjsembed )
-endif(NOT WINCE)
+endif(NOT WINCE AND FALSE)
 add_subdirectory( kio )
 add_subdirectory( solid )
-add_subdirectory( kded       )
+#add_subdirectory( kded       )
 if (QT_QT3SUPPORT_FOUND)
    add_subdirectory( kde3support  )
 endif (QT_QT3SUPPORT_FOUND)
 add_subdirectory( kfile )
-add_subdirectory( kconf_update )
-if(NOT WINCE)
-add_subdirectory( kdoctools  )
-endif(NOT WINCE)
+#add_subdirectory( kconf_update )
 add_subdirectory( kioslave   )
-add_subdirectory( knewstuff  )
 add_subdirectory( kparts     )
 add_subdirectory( kutils     )
 add_subdirectory( licenses   )
@@ -307,9 +304,6 @@ add_subdirectory( mimetypes  )
 add_subdirectory( kinit  )
 add_subdirectory( threadweaver )
 add_subdirectory( sonnet  )
-if(NOT WINCE)
-add_subdirectory( khtml  )
-endif(NOT WINCE)
 add_subdirectory( interfaces  )
 #if ( NOT CMAKE_CROSSCOMPILING AND QT_QTDESIGNER_FOUND )
 add_subdirectory( kdewidgets  )
@@ -325,11 +319,7 @@ if(NOT WINCE)
 add_subdirectory( plasma )
 endif(NOT WINCE)
 add_subdirectory( kunitconversion )
-add_subdirectory( kdewebkit )
 add_subdirectory( includes )
-
-add_subdirectory( experimental )
-macro_optional_add_subdirectory( doc  )
 
 ################# write dependency file which will be installed #################
 

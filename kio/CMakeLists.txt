@@ -38,10 +38,8 @@ include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/bookmarks
    ${CMAKE_CURRENT_SOURCE_DIR}/kio
    ${CMAKE_CURRENT_SOURCE_DIR}/kfile
-   ${CMAKE_CURRENT_SOURCE_DIR}/kssl
    ${CMAKE_CURRENT_SOURCE_DIR}      # for including kio/kio_export.h
    ${CMAKE_CURRENT_BINARY_DIR}/kio
-   ${CMAKE_CURRENT_BINARY_DIR}/kssl
    ${CMAKE_CURRENT_BINARY_DIR}      # e.g. for observer_stub.h
    ${KDE4_KDEUI_INCLUDES}
    ${KDE4_KDECORE_INCLUDES}/
@@ -71,10 +69,10 @@ endif (NOT KIO_NO_STRIGI)
 configure_file(kssl/ksslconfig.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/kssl/ksslconfig.h )
 #macro_additional_clean_files( ${CMAKE_CURRENT_BINARY_DIR}/kssl/ksslconfig.h )
 
-add_subdirectory( kssl/kssl )
-add_subdirectory( kssl/kcm )
+#add_subdirectory( kssl/kssl )
+#add_subdirectory( kssl/kcm )
 add_subdirectory( misc )
-add_subdirectory( tests )
+#add_subdirectory( tests )
 if(STRIGI_FOUND)
    add_subdirectory( kio/dummyanalyzers )
 endif(STRIGI_FOUND)
@@ -270,23 +268,6 @@ endif(NOT WIN32)
 qt4_add_resources(kfile_STAT_SRCS kfile/kacleditwidget.qrc)
 
 # kio/kssl/Makefile.am: kssl
-
-set(kssl_STAT_SRCS
-  kssl/sslui.cpp
-  kssl/ksslcertificatebox.cpp
-  kssl/ksslinfodialog.cpp
-# below is what's left of KDE2/3 SSL code, still required for certificate chain validation
-# by hand and for key generation. Network code has been removed.
-  kssl/kopenssl.cpp
-  kssl/kssl.cpp
-  kssl/ksslcertchain.cpp
-  kssl/ksslcertificate.cpp
-  kssl/ksslkeygen.cpp
-  kssl/ksslsettings.cpp
-  kssl/ksslutils.cpp
-  kssl/ksslx509v3.cpp
-)
-
 
 ########### next target ###############
 

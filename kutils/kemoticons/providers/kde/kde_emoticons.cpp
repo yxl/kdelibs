@@ -28,7 +28,7 @@
 #include <kstandarddirs.h>
 
 K_PLUGIN_FACTORY(KdeEmoticonsFactory, registerPlugin<KdeEmoticons>();)
-K_EXPORT_PLUGIN(KdeEmoticonsFactory("KdeEmoticons"))
+K_EXPORT_STATIC_PLUGIN(KdeEmoticonsFactory("KdeEmoticons"), KdeEmoticonsFactory)
 
 KdeEmoticons::KdeEmoticons(QObject *parent, const QVariantList &args)
         : KEmoticonsProvider(parent)
