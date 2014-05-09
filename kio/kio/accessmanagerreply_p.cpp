@@ -32,7 +32,7 @@
 #include <kprotocolinfo.h>
 #include <kmimetype.h>
 
-#include <QtNetwork/QSslConfiguration>
+//#include <QtNetwork/QSslConfiguration>
 
 #define QL1S(x)  QLatin1String(x)
 #define QL1C(x)  QLatin1Char(x)
@@ -56,10 +56,10 @@ AccessManagerReply::AccessManagerReply(const QNetworkAccessManager::Operation op
     setUrl(request.url());
     setOperation(op);
     setError(NoError, QString());
-
+#if 0
     if (!request.sslConfiguration().isNull())
         setSslConfiguration(request.sslConfiguration());
-
+#endif
     connect(kioJob, SIGNAL(redirection(KIO::Job*,KUrl)), SLOT(slotRedirection(KIO::Job*,KUrl)));
     connect(kioJob, SIGNAL(percent(KJob*,ulong)), SLOT(slotPercent(KJob*,ulong)));
 
@@ -90,10 +90,10 @@ AccessManagerReply::AccessManagerReply (const QNetworkAccessManager::Operation o
     setUrl((url.isValid() ? url : request.url()));
     setOperation(op);
     setHeaderFromMetaData(metaData);
-
+#if 0
     if (!request.sslConfiguration().isNull())
         setSslConfiguration(request.sslConfiguration());
-
+#endif
     setError(NoError, QString());
     emitFinished(true, Qt::QueuedConnection);
 }
@@ -173,14 +173,14 @@ void AccessManagerReply::setHeaderFromMetaData (const KIO::MetaData& _metaData)
     }
 
     KIO::MetaData metaData(_metaData);
-
+#if 0
     // Set the encryption attribute and values...
     QSslConfiguration sslConfig;
     const bool isEncrypted = KIO::Integration::sslConfigFromMetaData(metaData, sslConfig);
     setAttribute(QNetworkRequest::ConnectionEncryptedAttribute, isEncrypted);
     if (isEncrypted)
         setSslConfiguration(sslConfig);
-
+#endif
     // Set the raw header information...
     const QStringList httpHeaders (metaData.value(QL1S("HTTP-Headers")).split(QL1C('\n'), QString::SkipEmptyParts));
     if (httpHeaders.isEmpty()) {
