@@ -6,6 +6,27 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 # Make CPack available to easy generate binary packages
 include(CPack)
 
+################### For Emscripten ########################
+# the name of the target operating system
+SET(EMSCRIPTEN_NATIVE 1)
+SET(EMSCRIPTEN 1)
+
+set(KDE4_INSTALL  $ENV{HOME}/kde4/install)
+add_definitions("-DEMSCRIPTEN -DEMSCRIPTEN_NATIVE")
+
+# FindQt4.cmake querys qmake to get information, this doesn't work when crosscompiling
+set(QT_BINARY_DIR   ${KDE4_INSTALL}/bin)
+set(QT_LIBRARY_DIR  ${KDE4_INSTALL}/lib)
+set(QT_HEADERS_DIR  ${KDE4_INSTALL}/include)
+set(QT_QTCORE_LIBRARY   ${KDE4_INSTALL}/lib/QtCore.a)
+set(QT_QTCORE_INCLUDE_DIR ${KDE4_INSTALL}/include/QtCore)
+set(QT_MKSPECS_DIR  ${KDE4_INSTALL}/mkspecs)
+set(QT_MOC_EXECUTABLE  ${KDE4_INSTALL}/bin/moc)
+set(QT_QMAKE_EXECUTABLE  ${KDE4_INSTALL}/bin/qmake)
+set(QT_UIC_EXECUTABLE  ${KDE4_INSTALL}/bin/uic)
+set(QT_DBUSXML2CPP_EXECUTABLE ${KDE4_INSTALL}/bin/qdbusxml2cpp)
+set(QT_DBUSCPP2XML_EXECUTABLE ${KDE4_INSTALL}/bin/qdbuscpp2xml)
+
 ################# set KDE specific information #################
 
 set (KDE_VERSION_MAJOR 4)

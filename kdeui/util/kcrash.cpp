@@ -824,6 +824,8 @@ static int openSocket()
      return -1;
   }
   return s;
+#else
+  return -1;
 #endif
 }
 

@@ -38,7 +38,7 @@
  * - app_startup_id  DESKTOP_STARTUP_ID  string
  * - environment     Additional envvars  strings, last one is empty
  */
-
+#include <stddef.h>
 #include <config.h>
 #include <config-kdesu.h>
 
