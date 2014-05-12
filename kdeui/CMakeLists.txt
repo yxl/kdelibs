@@ -299,12 +299,11 @@ set(kdeui_LIB_SRCS
  xmlgui/kxmlguiversionhandler.cpp
 )
 
-if (NOT EMSCRIPTEN)
-    set(kdeui_LIB_SRCS
-     ${kdeui_LIB_SRCS}
-     kernel/ksessionmanager.cpp
-     )
-endif()
+
+set(kdeui_LIB_SRCS
+ ${kdeui_LIB_SRCS}
+ kernel/ksessionmanager.cpp
+)
 
 if(NOT KDE_NO_DEPRECATED)
 set(kdeui_LIB_SRCS
