@@ -226,8 +226,8 @@ if ("${CMAKE_GENERATOR}" MATCHES "^Visual Studio.*")
 	set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${EMSCRIPTEN_VS_LINKER_FLAGS}" CACHE STRING "")
 endif()
 
-set(KDE_PREFIX    $ENV{EMSCRIPTEN_KDE_INSTALL})
-set(KDE4_SRC_DIR  $ENV{EMSCRIPTEN_KDE_SRC})
+set(KDE_PREFIX    $ENV{HOME}/kde4/install)
+set(KDE4_SRC_DIR  $ENV{HOME}/kde4/src/kdelibs)
 set(EMSCRIPTEN_SYSTEM $ENV{EMSCRIPTEN_ROOT_PATH}/system/)
 
 # here is the target environment located
@@ -257,20 +257,20 @@ set(ENV{QMAKESPEC} $ENV{EMSCRIPTEN_KDE_INSTALL}/mkspecs/qws/emscripten-clang)
 set(Automoc4_DIR "/usr/lib/automoc4")
 
 # FindPhonon.cmake
-set(PHONON_INCLUDE_DIR /home/wzhu/workspace/build-emscripten-qt/include)
+set(PHONON_INCLUDE_DIR $ENV{HOME}/kde4/build/qt/include)
 set(PHONON_LIBRARY ${QT_LIBRARY_DIR})
 
 # Boots
-set(Boost_INCLUDE_DIR /home/wzhu/workspace/boost_1_55_0)
+set(Boost_INCLUDE_DIR $ENV{HOME}/kde4/src/boost_1_55_0)
 
 # ZLIB
-set(ZLIB_INCLUDE_DIR /home/wzhu/workspace/zlib-1.2.5/src)
-set(ZLIB_LIBRARY /home/wzhu/workspace/zlib-1.2.5/build)
+set(ZLIB_INCLUDE_DIR $ENV{HOME}/kde4/src/zlib-1.2.5/src)
+set(ZLIB_LIBRARY $ENV{HOME}/kde4/src/zlib-1.2.5/build)
 
 #iconv
-set(ICONV_INCLUDE_DIR /home/wzhu/workspace/libiconv-1.14/install/include)
-set(ICONV_LIBRARIES /home/wzhu/workspace/libiconv-1.14/install/lib)
+set(ICONV_INCLUDE_DIR $ENV{HOME}/kde4/src/libiconv-1.14/install/include)
+set(ICONV_LIBRARIES $ENV{HOME}/kde4/src/libiconv-1.14/install/lib)
 
 #Soprano
-set(SOPRANO_INCLUDE_DIR /home/wzhu/workspace/soprano-2.9.4/install/include)
-set(SOPRANO_LIBRARIES /home/wzhu/workspace/soprano-2.9.4/install/lib)
+set(SOPRANO_INCLUDE_DIR $ENV{HOME}/kde4/src/soprano-2.9.4/install/include)
+set(SOPRANO_LIBRARIES $ENV{HOME}/kde4/src/soprano-2.9.4/install/lib)
