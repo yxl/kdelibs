@@ -274,3 +274,7 @@ set(ICONV_LIBRARIES $ENV{HOME}/kde4/src/libiconv-1.14/install/lib)
 #Soprano
 set(SOPRANO_INCLUDE_DIR $ENV{HOME}/kde4/src/soprano-2.9.4/install/include)
 set(SOPRANO_LIBRARIES $ENV{HOME}/kde4/src/soprano-2.9.4/install/lib)
+
+#libxml2
+set(LIBXML2_INCLUDE_DIR $ENV{HOME}/kde4/src/libxml2-2.9.1/build/install/include/libxml2)
+set(LIBXML2_LIBRARIES $ENV{HOME}/kde4/src/libxml2-2.9.1/build/install/lib)
