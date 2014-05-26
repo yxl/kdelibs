@@ -361,7 +361,9 @@ void KConfigIniBackend::writeEntries(const QByteArray& locale, QFile& file, cons
 bool KConfigIniBackend::writeConfig(const QByteArray& locale, KEntryMap& entryMap,
                                     WriteOptions options, const KComponentData &data)
 {
-    Q_ASSERT(!filePath().isEmpty());
+    if (filePath().isEmpty()) {
+       return false;
+    }
 
     KEntryMap writeMap;
     const bool bGlobal = options & WriteGlobal;
